@@ -1,12 +1,9 @@
 {
-	"worldConfiguration": {
-		"name": "Matt.dcl.eth"
-	  },
 	"ecs7": true,
 	"runtimeVersion": "7",
 	"display": {
-		"title": "SDK7 Scene Template",
-		"description": "template scene with SDK7",
+		"title": "Knights of Antrom Decentraland Music Fest 2023 Community Build",
+		"description": "Knights of Antrom Decentraland Music Fest 2023 Community Build. Visit Knights of Antrom on Twitter @KnightsOfAntrom",
 		"navmapThumbnail": "images/scene-thumbnail.png",
 		"favicon": "favicon_asset"
 	},
@@ -17,31 +14,28 @@
 	},
 	"main": "bin/index.js",
 	"tags": [],
-    "scene": {
-        "parcels": [
-          "0,0",
-          "0,1",
-          "1,0",
-          "1,1"
-        ],
-        "base": "0,0"
-      },
+	"scene": {
+		"parcels": [		
+			"-57,59","-56,59","-57,60","-56,60"
+		],
+		"base": "-57,59"
+	},
 	"spawnPoints": [
 		{
 			"name": "spawn1",
-			"default": true,  
-			"position": {  
+			"default": true,
+			"position": {
 				"x": [
 					0,
-					3.14
+					3
 				],
 				"y": [
 					0,
-					9.74
+					0
 				],
 				"z": [
 					0,
-					4.17
+					3
 				]
 			},
 			"cameraTarget": {
@@ -51,9 +45,13 @@
 			}
 		}
 	],
-	"requiredPermissions": [
+	"allowedMediaHostnames": [
+		"decentraland.org"
+	  ],
+	  "requiredPermissions": [
 		"ALLOW_TO_TRIGGER_AVATAR_EMOTE",
-		"ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE"
-	],
+		"ALLOW_TO_MOVE_PLAYER_INSIDE_SCENE",
+		"ALLOW_MEDIA_HOSTNAMES"
+	  ],
 	"featureToggles": {}
 }

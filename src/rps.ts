@@ -1,12 +1,10 @@
+import { engine } from '@dcl/sdk/ecs'
+import { bossHealthBar, playerHealthBar } from './ui'
+
 export function playRockPaperScissors(choice: any) {
   // Choices
   const choices = ['rock', 'paper', 'scissors']
-
-  // Randomly select a choice for computer
   const computerChoice = choices[Math.floor(Math.random() * choices.length)]
-
-  // For simplicity, let’s let player always choose rock in this example
-  // But you could utilize a UI popup or something to let player make a choice
   const playerChoice = choice
 
   console.log(`Player: ${playerChoice}, Computer: ${computerChoice}`)
@@ -23,11 +21,19 @@ export function playRockPaperScissors(choice: any) {
   ) {
     result = 'Player wins!'
     console.log('Player wins!')
-    // Player wins, so spawn a cube
+    bossHealthBar.decrease(0.3)
+    if (bossHealthBar.read() <= 0) {
+      // boss is dead
+      //engine.removeEntity(boss)
+    }
   } else {
     result = 'Computer wins!'
     console.log('Computer wins!')
-    // Optionally: handle computer win scenario
+    playerHealthBar.decrease(0.3)
+    if (playerHealthBar.read() <= 0) {
+      // player is dead
+      //engine.removeEntity(boss)
+    }
   }
 
   console.log(result)
