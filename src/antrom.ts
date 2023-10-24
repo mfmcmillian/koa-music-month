@@ -10,7 +10,7 @@ export function creatAntrom() {
   })
 
   Transform.create(zombiehouse, {
-    position: Vector3.create(16, -9.9, 16),
+    position: Vector3.create(16, 0, 16),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })

@@ -15,7 +15,7 @@
 	"main": "bin/index.js",
 	"tags": [],
 	"scene": {
-		"parcels": [		
+		"parcels": [
 			"-57,59","-56,59","-57,60","-56,60"
 		],
 		"base": "-57,59"
@@ -46,7 +46,9 @@
 		}
 	],
 	"allowedMediaHostnames": [
-		"decentraland.org"
+		"decentraland.org",
+      "player.vimeo.com",
+		"live.seed.events"
 	  ],
 	  "requiredPermissions": [
 		"ALLOW_TO_TRIGGER_AVATAR_EMOTE",
