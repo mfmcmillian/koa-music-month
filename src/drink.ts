@@ -19,19 +19,19 @@ export function placeInHand() {
 
   const calis = engine.addEntity()
   Transform.create(calis, {
-    position: Vector3.create(0, -0.8, 0.4),
-    rotation: Quaternion.fromEulerDegrees(0, 145, 0),
+    position: Vector3.create(-1, -0.5, -1.45),
+    rotation: Quaternion.create(190, 1000, 1000, 1),
     parent: calisParent
   })
   GltfContainer.create(calis, {
-    src: 'models/ghost.glb.glb'
+    src: 'models/lute.glb'
   })
 
-  const camearaModifier = engine.addEntity()
-  AvatarAttach.create(camearaModifier)
+  //   const camearaModifier = engine.addEntity()
+  //   AvatarAttach.create(camearaModifier)
 
-  CameraModeArea.create(camearaModifier, {
-    area: Vector3.create(10, 10, 10),
-    mode: CameraType.CT_FIRST_PERSON
-  })
+  //   CameraModeArea.create(camearaModifier, {
+  //     area: Vector3.create(10, 10, 10),
+  //     mode: CameraType.CT_FIRST_PERSON
+  //   })
 }

@@ -32,6 +32,7 @@ export enum StepsEnum {
 
 export function main() {
   creatAntrom()
+
   // spawnSeeds()
   createVideoScreens()
   executeTask(async () => {

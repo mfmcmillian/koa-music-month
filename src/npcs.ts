@@ -292,10 +292,11 @@ export let OctoQuest: npc.Dialog[] = [
     name: 'makeLute',
     text: "You've gathered all the components needed to repair the Lute of Antrom. I will now work on restoring the lute's power.",
     triggeredByNext: () => {
+      placeInHand()
       npc.playAnimation(octo, 'CalisPrep', true, 7.17)
       utils.timers.setTimeout(() => {
         npc.talk(octo, OctoQuest, 'restoreLute')
-        placeInHand()
+        //placeInHand()
       }, 7250)
     },
     isEndOfDialog: true
