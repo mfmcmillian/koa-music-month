@@ -17,7 +17,7 @@ import { Action } from '@dcl/quests-client/dist/protocol/decentraland/quests/def
 import { spawnCat } from './cats'
 
 const serviceUrl = 'wss://quests-rpc.decentraland.org'
-const QUEST_ID = '919c0fc0-6c19-4d4d-ae4c-b1e8c9d226e7'
+const QUEST_ID = '5cee0c6a-6018-4b33-a1d9-641dc5fdf2ef'
 
 export enum StepsEnum {
   not_started = 0,
@@ -32,6 +32,8 @@ export enum StepsEnum {
 
 export function main() {
   creatAntrom()
+  //spawnCat()
+  //fix
 
   // spawnSeeds()
   createVideoScreens()

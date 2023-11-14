@@ -8,7 +8,7 @@
 					"description": "Talk to the Shaman",
 					"tasks": [{
 							"id": "talk_octo_1_task",
-							"description": "Talk to the town shaman",
+							"description": "Talk to the town shaman \nstanding in the market",
 							"actionItems": [{
 								"type": "CUSTOM",
 								"parameters": { "id": "talk_octo_1_action" }
@@ -16,10 +16,10 @@
 					}]
 			},{
 				"id": "collect_herbs",
-				"description": "Collect Melodies",
+				"description": "Collect the melodies",
 				"tasks": [{
 						"id": "collect_vines",
-						"description": "Collect 3 red melodies",
+						"description": "Collect 3 RED melodies",
 						"actionItems": [{
 							"type": "CUSTOM",
 							"parameters": { "id": "collect_vine_action" }
@@ -32,7 +32,7 @@
 						}]
 				}, {
 					"id": "collect_berries",
-					"description": "Collect 3 blue melodies",
+					"description": "Collect 3 BLUE melodies",
 					"actionItems": [{
 						"type": "CUSTOM",
 						"parameters": { "id": "collect_berry_action" }
@@ -45,7 +45,7 @@
 					}]
 			},{
 				"id": "collect_kimkim",
-				"description": "Collect 3 red melodies",
+				"description": "Collect 3 YELLOW melodies",
 				"actionItems": [{
 					"type": "CUSTOM",
 					"parameters": { "id": "collect_kimkim_action" }
@@ -60,17 +60,17 @@
 		},
 		{
 			"id": "catGuy_step",
-			"description": "Talk to Catrina",
+			"description": "Talk to Leofwine",
 			"tasks": [{
 					"id": "catGuy_task",
-					"description": "Talk to Catrina",
+					"description": "Talk to Leofwine",
 					"actionItems": [{
 						"type": "CUSTOM",
 						"parameters": { "id": "talk_catguy_action" }
 					}]
 			}, {
 				"id": "get_hair_task",
-				"description": "Get luke body",
+				"description": "Collect the Lute of Antroms' body",
 				"actionItems": [{
 					"type": "CUSTOM",
 					"parameters": { "id": "get_hair_action" }
@@ -79,10 +79,10 @@
 	},
 	{
 		"id": "calis_step",
-		"description": "Find the lute strings",
+		"description": "Find Lute strings",
 		"tasks": [{
 				"id": "calis_task",
-				"description": "Find a lute strings",
+				"description": "Find the Lute of Antroms' strings",
 				"actionItems": [{
 					"type": "CUSTOM",
 					"parameters": { "id": "calis_action" }
@@ -91,10 +91,10 @@
 	},
 	{
 		"id": "talk_octo_2_step",
-		"description": "Talk to the Shaman",
+		"description": "Return Lute body",
 		"tasks": [{
 				"id": "talk_octo_2_task",
-				"description": "Bring the lute body to the shaman",
+				"description": "Talk to the Shaman in the marketplace",
 				"actionItems": [{
 					"type": "CUSTOM",
 					"parameters": { "id": "talk_octo_2_action" }
@@ -102,10 +102,10 @@
 		}]
 },{
 	"id": "talk_octo_3_step",
-	"description": "Talk to the Shaman",
+	"description": "Collect the melodies",
 	"tasks": [{
 			"id": "talk_octo_3_task",
-			"description": "Bring the melodies to the shaman",
+			"description": "Talk to the Shaman in the marketplace",
 			"actionItems": [{
 				"type": "CUSTOM",
 				"parameters": { "id": "talk_octo_3_action" }
@@ -113,7 +113,7 @@
 	}]
 }, {
 	"id": "talk_octo_4_step",
-	"description": "Talk to the Shaman",
+	"description": "Return Lute strings",
 	"tasks": [{
 			"id": "talk_octo_4_task",
 			"description": "Bring the lute strings to the shaman",

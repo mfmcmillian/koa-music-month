@@ -9,13 +9,13 @@ export function spawnSeeds() {
   let yellowSeedEntity = engine.addEntity()
 
   GltfContainer.create(redSeedEntity, {
-    src: 'models/ghost.glb'
+    src: 'models/red.glb'
   })
   GltfContainer.create(blueSeedEntity, {
-    src: 'models/ghost.glb'
+    src: 'models/blue.glb'
   })
   GltfContainer.create(yellowSeedEntity, {
-    src: 'models/ghost.glb'
+    src: 'models/yellow.glb'
   })
 
   Transform.create(redSeedEntity, {

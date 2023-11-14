@@ -46,91 +46,78 @@ export function addCollectibles() {
   //   let item4 = engine.addEntity()
 
   GltfContainer.create(redSeedEntity, {
-    src: 'models/ghost.glb'
+    src: 'models/red.glb'
   })
   GltfContainer.create(blueSeedEntity, {
-    src: 'models/ghost.glb'
+    src: 'models/blue.glb'
   })
   GltfContainer.create(yellowSeedEntity, {
-    src: 'models/ghost.glb'
+    src: 'models/yellow.glb'
   })
 
   GltfContainer.create(redSeedEntity1, {
-    src: 'models/ghost.glb'
+    src: 'models/red2.glb'
   })
   GltfContainer.create(blueSeedEntity1, {
-    src: 'models/ghost.glb'
+    src: 'models/blue.glb'
   })
   GltfContainer.create(yellowSeedEntity1, {
-    src: 'models/ghost.glb'
+    src: 'models/yellow.glb'
   })
-
-  //   GltfContainer.create(item, {
-  //     src: 'models/ghost.glb'
-  //   })
-  //   GltfContainer.create(item2, {
-  //     src: 'models/ghost.glb'
-  //   })
-  //   GltfContainer.create(item3, {
-  //     src: 'models/ghost.glb'
-  //   })
-  //   GltfContainer.create(item4, {
-  //     src: 'models/ghost.glb'
-  //   })
 
   GltfContainer.create(redSeedEntity2, {
-    src: 'models/ghost.glb'
+    src: 'models/red.glb'
   })
   GltfContainer.create(blueSeedEntity2, {
-    src: 'models/ghost.glb'
+    src: 'models/blue.glb'
   })
   GltfContainer.create(yellowSeedEntity2, {
-    src: 'models/ghost.glb'
+    src: 'models/yellow.glb'
   })
 
   Transform.create(redSeedEntity, {
-    position: Vector3.create(3.01, 0.88, 3.9),
+    position: Vector3.create(12.28, 8.9, 1.97),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
   Transform.create(blueSeedEntity, {
-    position: Vector3.create(6.51, 0.88, 3.33),
+    position: Vector3.create(24.55, 2.04, 19.81),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
   Transform.create(yellowSeedEntity, {
-    position: Vector3.create(3.08, 0.88, 5.51),
+    position: Vector3.create(17.21, 0.88, 4.86),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
 
   Transform.create(redSeedEntity1, {
-    position: Vector3.create(3.01, 0.88, 3.9),
+    position: Vector3.create(5.14, 7.22, 15.97),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
   Transform.create(blueSeedEntity1, {
-    position: Vector3.create(6.51, 0.88, 3.33),
+    position: Vector3.create(28.77, 1.98, 10.17),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
   Transform.create(yellowSeedEntity1, {
-    position: Vector3.create(3.08, 0.88, 5.51),
+    position: Vector3.create(30.04, 1.04, 29.68),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
   Transform.create(redSeedEntity2, {
-    position: Vector3.create(3.01, 0.88, 3.9),
+    position: Vector3.create(5.47, 4.91, 22.16),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
   Transform.create(blueSeedEntity2, {
-    position: Vector3.create(6.51, 0.88, 3.33),
+    position: Vector3.create(1.19, 0.88, 1.73),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
   Transform.create(yellowSeedEntity2, {
-    position: Vector3.create(3.08, 0.88, 5.51),
+    position: Vector3.create(9.67, 0.88, 14.52),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })
@@ -162,20 +149,11 @@ export function addStrings() {
   let item = engine.addEntity()
 
   GltfContainer.create(item, {
-    src: 'models/ghost.glb'
+    src: 'models/lutestrings.glb'
   })
-  //   GltfContainer.create(item2, {
-  //     src: 'models/ghost.glb'
-  //   })
-  //   GltfContainer.create(item3, {
-  //     src: 'models/ghost.glb'
-  //   })
-  //   GltfContainer.create(item4, {
-  //     src: 'models/ghost.glb'
-  //   })
 
   Transform.create(item, {
-    position: Vector3.create(16.04, 1.88, 16.01),
+    position: Vector3.create(2.06, 1.84, 25.0),
     rotation: Quaternion.create(0, 1, 0, 0),
     scale: Vector3.create(1, 1, 1)
   })

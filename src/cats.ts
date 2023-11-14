@@ -14,8 +14,8 @@ export function spawnCat() {
   if (catIsOut) return
   catIsOut = true
 
-  const initialPosition = Vector3.create(26.07, 0.88, 13.79)
-  const initialRotation = Quaternion.fromEulerDegrees(0, -26.92, 0)
+  const initialPosition = Vector3.create(25.67, 1, 28.82)
+  const initialRotation = Quaternion.create(0, 1, 0, 0)
   const endPosition = Vector3.add(initialPosition, Vector3.rotate(Vector3.Forward(), initialRotation))
 
   const cat = engine.addEntity()
