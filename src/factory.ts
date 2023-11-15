@@ -15,7 +15,6 @@ import {
     VisibilityComponent
 } from '@dcl/sdk/ecs'
 import {Color4, Quaternion, Vector3} from '@dcl/sdk/math'
-import {setupUi} from './ui'
 import {triggerSceneEmote} from "~system/RestrictedActions";
 import {
     buttonAlphaColors,
@@ -23,7 +22,8 @@ import {
     decreaseScore,
     gameRunning,
     increaseScore,
-    maxScore, resetScore,
+    maxScore,
+    resetScore,
     score,
     setButtonAlphaColors,
     setButtonColors,
@@ -115,7 +115,6 @@ export function spawnSeeds() {
 
     function checkIfAllSeedsCollected() {
         if (collectedSeedCount === 3) {
-            setupUi()
             spawnBoss()
         }
     }
@@ -262,7 +261,7 @@ export function addAttackInputs() {
 
             // Create AudioSource component
             AudioSource.create(sourceEntity, {
-                audioClipUrl: 'sounds/SO_TR_baglama_chord_Cm.wav',
+                audioClipUrl: 'sounds/SO_TR_baglama_chord_Cm.mp3',
                 loop: false,
                 playing: true,
             })
@@ -294,7 +293,7 @@ export function addAttackInputs() {
 
             // Create AudioSource component
             AudioSource.create(sourceEntity, {
-                audioClipUrl: 'sounds/SO_TR_baglama_chord_Fm.wav',
+                audioClipUrl: 'sounds/SO_TR_baglama_chord_Fm.mp3',
                 loop: false,
                 playing: true,
             })
@@ -325,7 +324,7 @@ export function addAttackInputs() {
 
             // Create AudioSource component
             AudioSource.create(sourceEntity, {
-                audioClipUrl: 'sounds/SO_TR_baglama_chord_Bb.wav',
+                audioClipUrl: 'sounds/SO_TR_baglama_chord_Bb.mp3',
                 loop: false,
                 playing: true,
             })

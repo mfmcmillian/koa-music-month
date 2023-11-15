@@ -1,5 +1,6 @@
 import ReactEcs, {Label, UiEntity} from "@dcl/sdk/react-ecs";
 import {Color4} from "@dcl/sdk/math";
+import {AudioSource, AvatarAnchorPointType, AvatarAttach, engine} from "@dcl/sdk/ecs";
 
 export const color1 = Color4.Gray()
 export const color2 = Color4.Gray()
@@ -34,6 +35,19 @@ export const increaseScore = () => {
 export const decreaseScore = () => {
     score--
     score = Math.max(score, 0)
+
+    // Create entity
+    const sourceEntity = engine.addEntity()
+    AvatarAttach.create(sourceEntity, {
+        anchorPointId: AvatarAnchorPointType.AAPT_NAME_TAG
+    })
+
+    // Create AudioSource component
+    AudioSource.create(sourceEntity, {
+        audioClipUrl: 'sounds/F#.mp3',
+        loop: false,
+        playing: true,
+    })
 }
 
 export const resetScore = () => {
