@@ -23,7 +23,7 @@ import {
     decreaseScore,
     gameRunning,
     increaseScore,
-    maxScore,
+    maxScore, resetScore,
     score,
     setButtonAlphaColors,
     setButtonColors,
@@ -228,8 +228,13 @@ export const gameSystem = (dt: number) => {
 
 //engine.addSystem(gameSystem)
 
+let attackInputsAdded = false
 
 export function addAttackInputs() {
+
+    if(attackInputsAdded) return
+
+    attackInputsAdded = true
 
     engine.addSystem(() => {
         if (inputSystem.isTriggered(InputAction.IA_ACTION_3, PointerEventType.PET_DOWN)) {
@@ -371,6 +376,8 @@ export function addAttackInputs() {
 export function startNewBossFight() {
     VisibilityComponent.getMutable(bossE).visible = true
     VisibilityComponent.getMutable(orbE).visible = true
+
+    resetScore()
 
     Animator.playSingleAnimation(bossE, 'attack')
 
