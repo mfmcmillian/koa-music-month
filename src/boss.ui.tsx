@@ -1,6 +1,17 @@
 import ReactEcs, {Label, UiEntity} from "@dcl/sdk/react-ecs";
 import {Color4} from "@dcl/sdk/math";
-import {red} from "./factory";
+import {bossE, red} from "./factory";
+import {
+    Animator,
+    AudioSource,
+    AvatarAnchorPointType,
+    AvatarAttach,
+    engine,
+    InputAction,
+    inputSystem,
+    PointerEventType
+} from "@dcl/sdk/ecs";
+import {triggerSceneEmote} from "~system/RestrictedActions";
 
 export const color1 = Color4.Gray()
 export const color2 = Color4.Gray()
@@ -12,6 +23,22 @@ export const setButtonColors = (color1: Color4, color2: Color4, color3: Color4) 
     buttonColors = [color1, color2, color3]
 }
 
+export let score = 0
+export const maxScore = 20
+
+export const increaseScore = () => {
+    score++
+}
+
+export const decreaseScore = () => {
+    score--
+    score = Math.max(score, 0)
+}
+
+export const resetScore = () => {
+    score = 0
+}
+
 export function bossUi() {
 
     return (
@@ -20,7 +47,10 @@ export function bossUi() {
                 display: 'flex',
                 positionType: 'absolute',
                 position: {top: '5%', left: '40%'},
-                width: 300,
+                width: 360,
+                height: 200,
+                flexDirection: 'row',
+                flexWrap: 'wrap',
                 justifyContent: 'space-between',
             }
             }
@@ -66,6 +96,36 @@ export function bossUi() {
                 }}
             >
                 <Label value="3" fontSize={40} color={buttonColors[2]}/>
+            </UiEntity>
+
+            <UiEntity
+                uiTransform={{
+                    height: 80,
+                    width: 80,
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    padding: {top: 30, bottom: 10, left: 10, right: 10},
+                }}
+                uiBackground={{
+                    color: Color4.White(),
+                }}
+            >
+                <Label value={`${score}`} fontSize={40} color={Color4.Black()}/>
+            </UiEntity>
+            <UiEntity
+                uiTransform={{
+                    height: 80,
+                    width: '100%',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    display: (score > maxScore) ? 'flex': 'none',
+                    padding: {top: 30, bottom: 10, left: 10, right: 10},
+                }}
+                uiBackground={{
+                    color: Color4.Green(),
+                }}
+            >
+                <Label value={`Press 4 to End`} fontSize={40} color={Color4.White()}/>
             </UiEntity>
         </UiEntity>
     )

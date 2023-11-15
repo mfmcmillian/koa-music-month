@@ -6,7 +6,9 @@ import {
     engine,
     GltfContainer,
     InputAction,
-    inputSystem, Material, MeshRenderer,
+    inputSystem,
+    Material,
+    MeshRenderer,
     pointerEventsSystem,
     PointerEventType,
     Transform
@@ -14,7 +16,7 @@ import {
 import {Color4, Quaternion, Vector3} from '@dcl/sdk/math'
 import {setupUi} from './ui'
 import {triggerSceneEmote} from "~system/RestrictedActions";
-import {buttonColors, setButtonColors} from "./boss.ui";
+import {buttonColors, decreaseScore, increaseScore, maxScore, score, setButtonColors} from "./boss.ui";
 
 export function spawnSeeds() {
     // Create entities for each seed
@@ -112,7 +114,11 @@ export const yellow = Color4.create(1, 1, 0, .1)
 export const blue = Color4.create(0, 0, 1, .1)
 const colors = [red, blue, yellow]
 
-const bossE = spawnBoss()
+export const [bossE, orbE] = spawnBoss()
+
+let curButton = -1
+
+
 export function spawnBoss() {
     // Create entities for each seed
     let boss = engine.addEntity()
@@ -130,21 +136,15 @@ export function spawnBoss() {
                 loop: true,
             },
             {
-                clip: 'lute',
+                clip: 'die',
                 playing: false,
                 loop: false,
             }]
     })
 
-    // Create entity
-    const sourceEntity = engine.addEntity()
-
-    Transform.create(sourceEntity, {
-        parent: boss,
-    })
 
     // Create AudioSource component
-    AudioSource.create(sourceEntity, {
+    AudioSource.create(boss, {
         audioClipUrl: 'sounds/boss_melody.mp3',
         loop: true,
         playing: true,
@@ -161,7 +161,7 @@ export function spawnBoss() {
     MeshRenderer.setSphere(orbE)
     Transform.create(orbE, {
         parent: boss,
-        scale: Vector3.create(2,2,2),
+        scale: Vector3.create(2, 2, 2),
         position: Vector3.create(0, 1, .2),
     })
     Material.setPbrMaterial(orbE, {
@@ -171,7 +171,7 @@ export function spawnBoss() {
     })
 
     let timer = 1
-    const gameSystem = (dt:number) =>{
+    const gameSystem = (dt: number) => {
         timer -= dt
         if (timer <= 0) {
             timer = 1
@@ -181,14 +181,16 @@ export function spawnBoss() {
 
             const newColorPos = Math.floor(Math.random() * colors.length)
 
-            const newColor =  colors[newColorPos]
+            const newColor = colors[newColorPos]
 
             setButtonColors(Color4.Gray(), Color4.Gray(), Color4.Gray())
 
             buttonColors[newColorPos] = Color4.Black()
 
+            curButton = newColorPos
+
             Material.setPbrMaterial(orbE, {
-                albedoColor:newColor,
+                albedoColor: newColor,
                 emissiveColor: newColor,
             })
         }
@@ -197,7 +199,7 @@ export function spawnBoss() {
     engine.addSystem(gameSystem)
 
 
-    return boss
+    return [boss, orbE]
 }
 
 
@@ -205,7 +207,18 @@ export function addAttackInputs() {
 
     engine.addSystem(() => {
         if (inputSystem.isTriggered(InputAction.IA_ACTION_3, PointerEventType.PET_DOWN)) {
-            console.log('Attack button pressed')
+            console.log('Attack button 1 pressed')
+
+            if (curButton === 0) {
+                console.log('correct button pressed')
+                buttonColors[0] = Color4.Green()
+                increaseScore()
+            } else {
+                console.log('incorrect button pressed')
+                buttonColors[0] = Color4.Red()
+                decreaseScore()
+
+            }
 
             // Logic in response to button press
             triggerSceneEmote({src: 'models/Lute_Emote.glb'})
@@ -227,7 +240,17 @@ export function addAttackInputs() {
 
 
         if (inputSystem.isTriggered(InputAction.IA_ACTION_4, PointerEventType.PET_DOWN)) {
-            console.log('Attack button pressed')
+            console.log('Attack button 2 pressed')
+
+            if (curButton === 1) {
+                console.log('correct button pressed')
+                buttonColors[1] = Color4.Green()
+                increaseScore()
+            } else {
+                console.log('incorrect button pressed')
+                buttonColors[1] = Color4.Red()
+                decreaseScore()
+            }
 
             // Logic in response to button press
             triggerSceneEmote({src: 'models/Lute_Emote.glb'})
@@ -248,7 +271,17 @@ export function addAttackInputs() {
         }
 
         if (inputSystem.isTriggered(InputAction.IA_ACTION_5, PointerEventType.PET_DOWN)) {
-            console.log('Attack button pressed')
+            console.log('Attack button 3 pressed')
+
+            if (curButton === 2) {
+                console.log('correct button pressed')
+                buttonColors[2] = Color4.Green()
+                increaseScore()
+            } else {
+                console.log('incorrect button pressed')
+                buttonColors[2] = Color4.Red()
+                decreaseScore()
+            }
 
             // Logic in response to button press
             triggerSceneEmote({src: 'models/Lute_Emote.glb'})
@@ -268,26 +301,33 @@ export function addAttackInputs() {
 
         }
 
+
         if (inputSystem.isTriggered(InputAction.IA_ACTION_6, PointerEventType.PET_DOWN)) {
-            console.log('Attack button pressed')
+            if (score >= maxScore) {
+                console.log('Boss defeated !')
 
-            // Logic in response to button press
-            triggerSceneEmote({src: 'models/Lute_Emote.glb'})
+                AudioSource.getMutable(bossE).playing = false
 
-            // Create entity
-            const sourceEntity = engine.addEntity()
-            AvatarAttach.create(sourceEntity, {
-                anchorPointId: AvatarAnchorPointType.AAPT_NAME_TAG
-            })
+                // Create entity
+                const sourceEntity = engine.addEntity()
+                AvatarAttach.create(sourceEntity, {
+                    anchorPointId: AvatarAnchorPointType.AAPT_NAME_TAG
+                })
 
-            // Create AudioSource component
-            AudioSource.create(sourceEntity, {
-                audioClipUrl: 'sounds/boss_dead.mp3',
-                loop: false,
-                playing: true,
-            })
+                // Create AudioSource component
+                AudioSource.create(sourceEntity, {
+                    audioClipUrl: 'sounds/boss_dead.mp3',
+                    loop: false,
+                    playing: true,
+                })
+
+                Animator.playSingleAnimation(bossE, 'die')
+
+                engine.removeEntity(orbE)
+            }
 
         }
+
 
     })
 
