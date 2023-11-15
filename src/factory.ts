@@ -23,7 +23,8 @@ import {
     gameRunning,
     increaseScore,
     maxScore,
-    score, setButtonAlphaColors,
+    score,
+    setButtonAlphaColors,
     setButtonColors,
     setGameRunning
 } from "./boss.ui";
@@ -181,9 +182,6 @@ export function spawnBoss() {
     })
 
 
-
-
-
     return [boss, orbE]
 }
 
@@ -196,6 +194,13 @@ const gameSystem = (dt: number) => {
 
         console.log('timer')
         //Transform.getMutable(orbE).scale = Vector3.add(Transform.get(orbE).scale, Vector3.create(.5,.5,.5))
+
+        console.log('buttonColors', buttonColors)
+
+        if (!buttonColors.find((c) => c.g === 1)) {
+            console.log('Green not found')
+            decreaseScore()
+        }
 
         const newColorPos = Math.floor(Math.random() * colors.length)
 
