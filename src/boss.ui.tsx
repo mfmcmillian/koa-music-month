@@ -118,7 +118,7 @@ export function bossUi() {
                     width: '100%',
                     alignItems: 'center',
                     flexDirection: 'column',
-                    display: (score > maxScore) ? 'flex': 'none',
+                    display: (score >= maxScore) ? 'flex': 'none',
                     padding: {top: 30, bottom: 10, left: 10, right: 10},
                 }}
                 uiBackground={{
