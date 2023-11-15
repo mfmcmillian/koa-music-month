@@ -7,6 +7,7 @@ import { StepsEnum } from '.'
 import * as utils from '@dcl-sdk/utils'
 import { placeInHand } from './drink'
 import { addCollectibles, addStrings } from './quest_collectibles'
+import {addAttackInputs, spawnBoss} from "./factory";
 
 let octo: Entity
 let catGuy: Entity
@@ -496,12 +497,14 @@ export let OctoQuest: npc.Dialog[] = [
     name: 'restoreLute',
     text: 'The Lute of Antrom is now restored. It is a powerful instrument with melodies that can vanquish the evil Bard and her scarecrow army.',
     triggeredByNext: () => {
-      actionEvents.emit('action', {
-        type: 'CUSTOM',
-        parameters: { id: 'talk_octo_4_action' }
-      })
+      // actionEvents.emit('action', {
+      //   type: 'CUSTOM',
+      //   parameters: { id: 'talk_octo_4_action' }
+      // })
       placeInHand()
       backToIdle()
+      spawnBoss()
+      addAttackInputs()
     },
     isEndOfDialog: true
   },

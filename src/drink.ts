@@ -14,13 +14,13 @@ import { Quaternion, Vector3 } from '@dcl/sdk/math'
 export function placeInHand() {
   const calisParent = engine.addEntity()
   AvatarAttach.create(calisParent, {
-    anchorPointId: AvatarAnchorPointType.AAPT_NAME_TAG
+    anchorPointId: AvatarAnchorPointType.AAPT_LEFT_HAND
   })
 
   const calis = engine.addEntity()
   Transform.create(calis, {
-    position: Vector3.create(-1, -0.5, -1.45),
-    rotation: Quaternion.create(190, 1000, 1000, 1),
+    position: Vector3.create(.022,.1,.28),
+    rotation: Quaternion.fromEulerDegrees(0,85,-95),
     parent: calisParent
   })
   GltfContainer.create(calis, {

@@ -2,12 +2,12 @@ import { creatAntrom } from './antrom'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
 import * as npc from 'dcl-npc-toolkit'
 import { Dialog } from 'dcl-npc-toolkit'
-import { spawnSeeds } from './factory'
+import {addAttackInputs, spawnBoss, spawnSeeds} from './factory'
 import { createVideoScreens } from './videoScreens'
 import { executeTask } from '@dcl/sdk/ecs'
 import { createQuestsClient, QuestInstance } from '@dcl/quests-client'
 import { pointerEventsSystem, InputAction } from '@dcl/sdk/ecs'
-import { addNPCs } from './npcs'
+import {addNPCs, backToIdle} from './npcs'
 import { startEvent, actionEvents, questProgress } from './events'
 import { addCollectibles, makeQuestCollectible } from './quest_collectibles'
 import { hud, setupUi } from './setupUI'
@@ -97,10 +97,21 @@ export function main() {
 
   // add plants and calis
   //addCollectibles()
+
+  placeInHand()
+  //spawnBoss()
+  addAttackInputs()
 }
 
 function updateInternalState(questInstance: QuestInstance) {
   if (questInstance.quest.id === QUEST_ID) {
+
+    if(questInstance.state.stepsLeft === 0){
+      placeInHand()
+      return
+    }
+
+
     for (let step of questInstance.state.stepsCompleted) {
       switch (step) {
         case 'talk_octo_1_step':

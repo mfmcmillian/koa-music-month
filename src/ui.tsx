@@ -36,8 +36,8 @@ const GameButton = (props: { src: string, onMouseDown: () => void }) => (
       texture: { src: props.src }
     }}
   />
-  
 );
+
 
 const RockPaperScissorsDialog = () => (
   <UiEntity
