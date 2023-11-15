@@ -18,8 +18,8 @@ const SceneOwnedUi = () => [
   // other UI elements
   NpcUtilsUi(),
   questComponent(),
+  DanceUI(),
   bossUi(),
-  DanceUI()
 
   // other UI elements
 ]

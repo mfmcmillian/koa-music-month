@@ -20,7 +20,7 @@ export const setButtonAlphaColors = (color1: number, color2: number, color3: num
 export let score = 0
 export const maxScore = 20
 
-export let gameRunning = true
+export let gameRunning = false
 
 export const setGameRunning = (value: boolean) => {
     gameRunning = value

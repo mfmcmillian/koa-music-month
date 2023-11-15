@@ -1,21 +1,27 @@
-import { Entity, engine } from '@dcl/sdk/ecs'
-import { Quaternion, Vector3 } from '@dcl/sdk/math'
+import {Entity} from '@dcl/sdk/ecs'
+import {Quaternion, Vector3} from '@dcl/sdk/math'
 import * as npc from 'dcl-npc-toolkit'
-import { startEvent, actionEvents, questProgress } from './events'
-import { catIsOut, spawnCat } from './cats'
-import { StepsEnum } from '.'
+import {actionEvents, questProgress, startEvent} from './events'
+import {catIsOut, spawnCat} from './cats'
+import {StepsEnum} from '.'
 import * as utils from '@dcl-sdk/utils'
-import { placeInHand } from './drink'
-import { addCollectibles, addStrings } from './quest_collectibles'
-import {addAttackInputs, spawnBoss} from "./factory";
+import {placeInHand} from './drink'
+import {addCollectibles, addStrings} from './quest_collectibles'
+import {startNewBossFight} from "./factory";
+import {gameRunning} from "./boss.ui";
 
-let octo: Entity
+export let octo: Entity
 let catGuy: Entity
 let villager1: Entity
 let villager2: Entity
 let villager3: Entity
 let villager4: Entity
 export let octoState: StepsEnum = StepsEnum.not_started
+
+export const setOctoState = (state: StepsEnum) => {
+    octoState = state
+}
+
 export function addNPCs() {
   questProgress.on('step', (stepNumber: StepsEnum) => {
     if (stepNumber <= octoState) return
@@ -66,6 +72,8 @@ export function addNPCs() {
           case StepsEnum.talk_octo_4_step:
             npc.talk(octo, OctoQuest, 'done') // 23
             break
+          case StepsEnum.completed:
+            npc.talk(octo, OctoQuest, 'done') // 23
         }
       },
       portrait: `images/portraits/druid.png`,
@@ -496,24 +504,42 @@ export let OctoQuest: npc.Dialog[] = [
   {
     name: 'restoreLute',
     text: 'The Lute of Antrom is now restored. It is a powerful instrument with melodies that can vanquish the evil Bard and her scarecrow army.',
+  },
+  {
+    name: 'restoreLute2',
+    text: 'Use the Lute\'s melodies wisely, and may you succeed in defeating the evil Bard.  Press 1, 2, and 3 to play the melodies and defeat the Bard.',
     triggeredByNext: () => {
-      // actionEvents.emit('action', {
-      //   type: 'CUSTOM',
-      //   parameters: { id: 'talk_octo_4_action' }
-      // })
-      placeInHand()
-      backToIdle()
-      spawnBoss()
-      addAttackInputs()
+
+      if(!gameRunning){
+
+        placeInHand()
+        backToIdle()
+        startNewBossFight()
+      }
     },
     isEndOfDialog: true
   },
   {
     name: 'done',
-    text: "You've done a great service for Antrom. The town is in your debt. Use the Lute's melodies wisely, and may you succeed in defeating the evil Bard.",
-    isEndOfDialog: true
-  },
+    text: "You've done a great service for Antrom. The town is in your debt. Are you ready to collect your reward?",
 
+    isQuestion: true,
+    buttons: [
+      {
+        label: 'YES',
+        goToDialog: 25, // 'quest1',
+        triggeredActions: () => {
+
+          //collect reward here
+
+        }
+      },
+      {
+        label: 'NO',
+        goToDialog: 25 // 'end'
+      }
+    ],
+  },
   {
     name: 'noHairs',
     text: "We're still missing a crucial component, the Lute's body. I cannot proceed without it; it's an essential part of the Lute of Antrom.",
@@ -568,5 +594,32 @@ export let OctoQuest: npc.Dialog[] = [
       addStrings()
     },
     isEndOfDialog: true
-  }
+  },
+
+  {
+    name: 'done2',
+    text: "Would you like to fight the Bard again?",
+
+    isQuestion: true,
+    buttons: [
+      {
+        label: 'YES',
+        goToDialog: 16, // 'quest1',
+      },
+      {
+        label: 'NO',
+        goToDialog: 27 // 'end'
+      }],
+    isEndOfDialog: true
+  },
+  {
+    name: 'done3',
+    text: "Come back later to collect your reward.",
+    isEndOfDialog: true
+  },
+  {
+    name: 'done4',
+    text: "Thanks again, have a good day.",
+    isEndOfDialog: true
+  },
 ]

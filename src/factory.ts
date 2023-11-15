@@ -11,7 +11,8 @@ import {
     MeshRenderer,
     pointerEventsSystem,
     PointerEventType,
-    Transform
+    Transform,
+    VisibilityComponent
 } from '@dcl/sdk/ecs'
 import {Color4, Quaternion, Vector3} from '@dcl/sdk/math'
 import {setupUi} from './ui'
@@ -28,6 +29,7 @@ import {
     setButtonColors,
     setGameRunning
 } from "./boss.ui";
+import {actionEvents} from "./events";
 
 export function spawnSeeds() {
     // Create entities for each seed
@@ -158,7 +160,7 @@ export function spawnBoss() {
     AudioSource.create(boss, {
         audioClipUrl: 'sounds/boss_melody.mp3',
         loop: true,
-        playing: true,
+        playing: false,
     })
 
     Transform.create(boss, {
@@ -167,6 +169,7 @@ export function spawnBoss() {
         scale: Vector3.create(2, 2, 2)
     })
 
+    VisibilityComponent.create(boss, {visible: false})
 
     const orbE = engine.addEntity()
     MeshRenderer.setSphere(orbE)
@@ -181,13 +184,14 @@ export function spawnBoss() {
         metallic: 1,
     })
 
+    VisibilityComponent.create(orbE, {visible: false})
 
     return [boss, orbE]
 }
 
 
 let timer = 1
-const gameSystem = (dt: number) => {
+export const gameSystem = (dt: number) => {
     timer -= dt
     if (timer <= 0) {
         timer = 1
@@ -222,7 +226,7 @@ const gameSystem = (dt: number) => {
 }
 
 
-engine.addSystem(gameSystem)
+//engine.addSystem(gameSystem)
 
 
 export function addAttackInputs() {
@@ -345,7 +349,13 @@ export function addAttackInputs() {
 
                 Animator.playSingleAnimation(bossE, 'die')
 
-                engine.removeEntity(orbE)
+                actionEvents.emit('action', {
+                  type: 'CUSTOM',
+                  parameters: { id: 'talk_octo_4_action' }
+                })
+
+
+                VisibilityComponent.getMutable(orbE).visible = false
 
                 setGameRunning(false)
 
@@ -356,4 +366,19 @@ export function addAttackInputs() {
 
     })
 
+}
+
+export function startNewBossFight() {
+    VisibilityComponent.getMutable(bossE).visible = true
+    VisibilityComponent.getMutable(orbE).visible = true
+
+    Animator.playSingleAnimation(bossE, 'attack')
+
+    engine.addSystem(gameSystem)
+
+    AudioSource.getMutable(bossE).playing = true
+
+    setGameRunning(true)
+
+    addAttackInputs()
 }

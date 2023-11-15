@@ -2,12 +2,12 @@ import { creatAntrom } from './antrom'
 import { Quaternion, Vector3 } from '@dcl/sdk/math'
 import * as npc from 'dcl-npc-toolkit'
 import { Dialog } from 'dcl-npc-toolkit'
-import {addAttackInputs, spawnBoss, spawnSeeds} from './factory'
+import {addAttackInputs, spawnBoss, spawnSeeds, startNewBossFight} from './factory'
 import { createVideoScreens } from './videoScreens'
 import { executeTask } from '@dcl/sdk/ecs'
 import { createQuestsClient, QuestInstance } from '@dcl/quests-client'
 import { pointerEventsSystem, InputAction } from '@dcl/sdk/ecs'
-import {addNPCs, backToIdle} from './npcs'
+import {addNPCs, backToIdle, octo, OctoQuest, octoState, setOctoState} from './npcs'
 import { startEvent, actionEvents, questProgress } from './events'
 import { addCollectibles, makeQuestCollectible } from './quest_collectibles'
 import { hud, setupUi } from './setupUI'
@@ -27,7 +27,8 @@ export enum StepsEnum {
   collect_herbs = 4,
   talk_octo_3_step = 5,
   calis_step = 6,
-  talk_octo_4_step = 7
+  talk_octo_4_step = 7,
+  completed = -1
 }
 
 export function main() {
@@ -98,19 +99,22 @@ export function main() {
   // add plants and calis
   //addCollectibles()
 
-  placeInHand()
+  //placeInHand()
   //spawnBoss()
-  addAttackInputs()
+ // addAttackInputs()
+
 }
 
 function updateInternalState(questInstance: QuestInstance) {
   if (questInstance.quest.id === QUEST_ID) {
 
     if(questInstance.state.stepsLeft === 0){
+      console.log("quest is completed")
       placeInHand()
+      addAttackInputs()
+      setOctoState(StepsEnum.completed)
       return
     }
-
 
     for (let step of questInstance.state.stepsCompleted) {
       switch (step) {
