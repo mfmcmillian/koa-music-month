@@ -11,6 +11,12 @@ export const setButtonColors = (color1: Color4, color2: Color4, color3: Color4) 
     buttonColors = [color1, color2, color3]
 }
 
+export let buttonAlphaColors = [.5, .5, .5]
+
+export const setButtonAlphaColors = (color1: number, color2: number, color3: number) => {
+    buttonAlphaColors = [color1, color2, color3]
+}
+
 export let score = 0
 export const maxScore = 20
 
@@ -59,7 +65,7 @@ export function bossUi() {
                     padding: {top: 30, bottom: 10, left: 10, right: 10},
                 }}
                 uiBackground={{
-                    color: Color4.create(1, 0, 0, .5),
+                    color: Color4.create(1, 0, 0, buttonAlphaColors[0]),
                 }}
             >
                 <Label value="1" fontSize={40} color={buttonColors[0]}/>
@@ -73,7 +79,7 @@ export function bossUi() {
                     padding: {top: 30, bottom: 10, left: 10, right: 10},
                 }}
                 uiBackground={{
-                    color: Color4.create(0, 0, 1, .5),
+                    color: Color4.create(0, 0, 1, buttonAlphaColors[1]),
                 }}
             >
                 <Label value="2" fontSize={40} color={buttonColors[1]}/>
@@ -87,7 +93,7 @@ export function bossUi() {
                     padding: {top: 30, bottom: 10, left: 10, right: 10},
                 }}
                 uiBackground={{
-                    color: Color4.create(1, 1, 0, .5),
+                    color: Color4.create(1, 1, 0, buttonAlphaColors[2]),
                 }}
             >
                 <Label value="3" fontSize={40} color={buttonColors[2]}/>

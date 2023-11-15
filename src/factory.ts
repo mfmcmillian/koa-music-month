@@ -17,12 +17,13 @@ import {Color4, Quaternion, Vector3} from '@dcl/sdk/math'
 import {setupUi} from './ui'
 import {triggerSceneEmote} from "~system/RestrictedActions";
 import {
+    buttonAlphaColors,
     buttonColors,
     decreaseScore,
     gameRunning,
     increaseScore,
     maxScore,
-    score,
+    score, setButtonAlphaColors,
     setButtonColors,
     setGameRunning
 } from "./boss.ui";
@@ -187,7 +188,6 @@ export function spawnBoss() {
 }
 
 
-
 let timer = 1
 const gameSystem = (dt: number) => {
     timer -= dt
@@ -202,8 +202,10 @@ const gameSystem = (dt: number) => {
         const newColor = colors[newColorPos]
 
         setButtonColors(Color4.Gray(), Color4.Gray(), Color4.Gray())
+        setButtonAlphaColors(.5, .5, .5)
 
         buttonColors[newColorPos] = Color4.Black()
+        buttonAlphaColors[newColorPos] = 1
 
         curButton = newColorPos
 
