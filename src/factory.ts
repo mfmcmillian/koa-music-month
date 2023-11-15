@@ -16,7 +16,16 @@ import {
 import {Color4, Quaternion, Vector3} from '@dcl/sdk/math'
 import {setupUi} from './ui'
 import {triggerSceneEmote} from "~system/RestrictedActions";
-import {buttonColors, decreaseScore, increaseScore, maxScore, score, setButtonColors} from "./boss.ui";
+import {
+    buttonColors,
+    decreaseScore,
+    gameRunning,
+    increaseScore,
+    maxScore,
+    score,
+    setButtonColors,
+    setGameRunning
+} from "./boss.ui";
 
 export function spawnSeeds() {
     // Create entities for each seed
@@ -170,37 +179,43 @@ export function spawnBoss() {
         metallic: 1,
     })
 
-    let timer = 1
-    const gameSystem = (dt: number) => {
-        timer -= dt
-        if (timer <= 0) {
-            timer = 1
 
-            console.log('timer')
-            //Transform.getMutable(orbE).scale = Vector3.add(Transform.get(orbE).scale, Vector3.create(.5,.5,.5))
 
-            const newColorPos = Math.floor(Math.random() * colors.length)
-
-            const newColor = colors[newColorPos]
-
-            setButtonColors(Color4.Gray(), Color4.Gray(), Color4.Gray())
-
-            buttonColors[newColorPos] = Color4.Black()
-
-            curButton = newColorPos
-
-            Material.setPbrMaterial(orbE, {
-                albedoColor: newColor,
-                emissiveColor: newColor,
-            })
-        }
-    }
-
-    engine.addSystem(gameSystem)
 
 
     return [boss, orbE]
 }
+
+
+
+let timer = 1
+const gameSystem = (dt: number) => {
+    timer -= dt
+    if (timer <= 0) {
+        timer = 1
+
+        console.log('timer')
+        //Transform.getMutable(orbE).scale = Vector3.add(Transform.get(orbE).scale, Vector3.create(.5,.5,.5))
+
+        const newColorPos = Math.floor(Math.random() * colors.length)
+
+        const newColor = colors[newColorPos]
+
+        setButtonColors(Color4.Gray(), Color4.Gray(), Color4.Gray())
+
+        buttonColors[newColorPos] = Color4.Black()
+
+        curButton = newColorPos
+
+        Material.setPbrMaterial(orbE, {
+            albedoColor: newColor,
+            emissiveColor: newColor,
+        })
+    }
+}
+
+
+engine.addSystem(gameSystem)
 
 
 export function addAttackInputs() {
@@ -303,7 +318,7 @@ export function addAttackInputs() {
 
 
         if (inputSystem.isTriggered(InputAction.IA_ACTION_6, PointerEventType.PET_DOWN)) {
-            if (score >= maxScore) {
+            if (score >= maxScore && gameRunning) {
                 console.log('Boss defeated !')
 
                 AudioSource.getMutable(bossE).playing = false
@@ -324,10 +339,13 @@ export function addAttackInputs() {
                 Animator.playSingleAnimation(bossE, 'die')
 
                 engine.removeEntity(orbE)
+
+                setGameRunning(false)
+
+                engine.removeSystem(gameSystem)
             }
 
         }
-
 
     })
 

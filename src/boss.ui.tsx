@@ -1,17 +1,5 @@
 import ReactEcs, {Label, UiEntity} from "@dcl/sdk/react-ecs";
 import {Color4} from "@dcl/sdk/math";
-import {bossE, red} from "./factory";
-import {
-    Animator,
-    AudioSource,
-    AvatarAnchorPointType,
-    AvatarAttach,
-    engine,
-    InputAction,
-    inputSystem,
-    PointerEventType
-} from "@dcl/sdk/ecs";
-import {triggerSceneEmote} from "~system/RestrictedActions";
 
 export const color1 = Color4.Gray()
 export const color2 = Color4.Gray()
@@ -25,6 +13,13 @@ export const setButtonColors = (color1: Color4, color2: Color4, color3: Color4) 
 
 export let score = 0
 export const maxScore = 20
+
+export let gameRunning = true
+
+export const setGameRunning = (value: boolean) => {
+    gameRunning = value
+}
+
 
 export const increaseScore = () => {
     score++
@@ -44,7 +39,7 @@ export function bossUi() {
     return (
         <UiEntity
             uiTransform={{
-                display: 'flex',
+                display: gameRunning ? 'flex' : 'none',
                 positionType: 'absolute',
                 position: {top: '5%', left: '40%'},
                 width: 360,
@@ -118,7 +113,7 @@ export function bossUi() {
                     width: '100%',
                     alignItems: 'center',
                     flexDirection: 'column',
-                    display: (score >= maxScore) ? 'flex': 'none',
+                    display: (score >= maxScore) ? 'flex' : 'none',
                     padding: {top: 30, bottom: 10, left: 10, right: 10},
                 }}
                 uiBackground={{
