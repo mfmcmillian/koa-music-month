@@ -1,7 +1,8 @@
 import { createQuestHUD } from '@dcl/quests-client/dist/hud'
 import ReactEcs, { Label, ReactEcsRenderer, UiEntity } from '@dcl/sdk/react-ecs'
 import { NpcUtilsUi } from 'dcl-npc-toolkit'
-import {bossUi} from "./boss.ui";
+import { bossUi } from './boss.ui'
+import DanceUI from './dance.ui'
 
 export const hud = createQuestHUD({
   leftSidePanel: {
@@ -17,12 +18,11 @@ const SceneOwnedUi = () => [
   // other UI elements
   NpcUtilsUi(),
   questComponent(),
-  bossUi()
+  bossUi(),
+  DanceUI()
 
   // other UI elements
 ]
-
-
 
 export function setupUi() {
   ReactEcsRenderer.setUiRenderer(SceneOwnedUi)
